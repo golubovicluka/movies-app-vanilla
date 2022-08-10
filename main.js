@@ -3,8 +3,12 @@ const recommendedCatalog = document.getElementById('recommended-catalog')
 const movieCatalog = document.getElementById('movie-catalog')
 const genresMenu = document.getElementById('genres-menu')
 const search = document.getElementById("search")
+const moviesWatchList = document.getElementById("watch-list")
+const injectButton = document.getElementById("csv")
 const movieJsonData = "data.json"
+let movies = []
 const watchList = []
+
 
 class Fetch {
     async fetchData(url) {
@@ -14,23 +18,31 @@ class Fetch {
 }
 const fetcher = new Fetch();
 
-function toWatchList(movie) {
-    if (watchList.length != 7) {
-        console.log(`${movie} added to the watch list!`);
-        watchList.push(movie)
-        console.log(`Current watch list: ${watchList}`);
-        const uniqueWatchList = new Set(watchList)
-    } else {
-        console.log(`Your watch list is full for this week`);
-        console.log(watchList)
-    }
-}
 
 class Render {
+
+    buildMoviesWatchList(movies) {
+
+        let html = ""
+        const days = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+        let i = 0;
+        for (const movie of movies) {
+            i++;
+            html += /*html*/`<div>
+                                <div class="watch-list-container">
+                                    <li>
+                                    ${days[i]}: ${movie}
+                                    </li>
+                            </div>`
+        }
+        moviesWatchList.innerHTML = html
+    }
 
     buildRecommendedCatalog(movies) {
         let html = ""
         for (const movie of movies) {
+            const inWatchList = watchList.includes(movie.title)
             html += /*html*/ `<div class="movie-card">
                                 <div class="card-poster">
                                     <img src="${movie.posterurl}"
@@ -40,7 +52,7 @@ class Render {
                                     <span>${movie.title}</span>
                                     <span>${'Year: '}${movie.year}</span>
                                     <span>${'Rating: '}${(movie.ratings.reduce((acc, c, _, arr) => acc + c / arr.length, 0).toFixed(1))}</span>
-                                    <button onclick="toWatchList('${movie.title}')">Add to watchlist</button>
+                                    <button onclick="toWatchList('${movie.title}')">${inWatchList ? 'In watch list' : 'Add to watchlist'}</button>
                                     </div>
                                 </div>`
         }
@@ -58,6 +70,7 @@ class Render {
     buildMovieCatalog(movies) {
         let html = ""
         for (const movie of movies) {
+            const inWatchList = watchList.includes(movie.title)
             html += /*html*/ `<div class="movie-card">
                                 <div class="card-poster">
                                     <img src="${movie.posterurl}"
@@ -67,7 +80,7 @@ class Render {
                                     <span>${movie.title}</span>
                                     <span>${'Year: '}${movie.year}</span>
                                     <span>${'Rating: '}${(movie.ratings.reduce((acc, c, _, arr) => acc + c / arr.length, 0).toFixed(1))}</span>
-                                    <button onclick="toWatchList('${movie.title}')">Add to watchlist</button>
+                                    <button onclick="toWatchList('${movie.title}')">${inWatchList ? 'In watch list' : 'Add to watchlist'}</button>
                                     </div>
                                 </div>`
         }
@@ -97,23 +110,47 @@ class MoviesFilter {
     filterRecommendedMovies(rating) {
         const filteredMovies = this.movies.filter(movie => movie.ratings.reduce((acc, c, _, arr) => acc + c / arr.length, 0).toFixed(1) >= rating)
         render.buildRecommendedCatalog(filteredMovies)
-        // console.log(rating, filteredMovies);
     }
 }
 
 let moviesFilter;
 
 window.onload = async () => {
-    const movies = await fetcher.fetchData(movieJsonData);
+    const fetchedMovies = await fetcher.fetchData(movieJsonData);
+    movies = fetchedMovies;
     moviesFilter = new MoviesFilter(movies);
     moviesFilter.filterRecommendedMovies(6)
     render.buildMovieCatalog(movies)
     const categories = new Set([].concat.apply([], movies.map(movie => movie.genres)))
     render.buildMovieGenresMenu(categories)
-    console.log(categories);
 }
 
-// TODO - modify the function to export in days + watchlist combined
+function toWatchList(movie) {
+    if (watchList.length <= 6) {
+        console.log(`${movie} added to the watch list!`);
+        watchList.push(movie)
+        const uniqueWatchList = new Set(watchList)
+        render.buildMoviesWatchList(watchList)
+        moviesFilter.filterRecommendedMovies(6)
+        render.buildMovieCatalog(movies)
+
+    } else {
+        exportToCsv(
+            'watchlist.data.csv', [
+            ['Day', 'Movie title'],
+            ['Monday', `${watchList[0]}`],
+            ['Tuesday', `${watchList[1]}`],
+            ['Wednesay', `${watchList[2]}`],
+            ['Thursday', `${watchList[3]}`],
+            ['Friday', `${watchList[4]}`],
+            ['Saturday', `${watchList[5]}`],
+            ['Sunday', `${watchList[6]}`],
+        ])
+        alert('Hey...Enough for this week, save some time for coding...downloading automatically, here are your movies data for this week, enjoy!')
+    }
+}
+
+// Helper function to export CSV
 function exportToCsv(filename, rows) {
     var processRow = function (row) {
         var finalVal = '';
@@ -121,7 +158,7 @@ function exportToCsv(filename, rows) {
             var innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
-            };
+            }
             var result = innerValue.replace(/"/g, '""');
             if (result.search(/("|,|\n)/g) >= 0)
                 result = '"' + result + '"';
@@ -138,12 +175,11 @@ function exportToCsv(filename, rows) {
     }
 
     var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
+    if (navigator.msSaveBlob) {
         navigator.msSaveBlob(blob, filename);
     } else {
         var link = document.createElement("a");
-        if (link.download !== undefined) { // feature detection
-            // Browsers that support HTML5 download attribute
+        if (link.download !== undefined) {
             var url = URL.createObjectURL(blob);
             link.setAttribute("href", url);
             link.setAttribute("download", filename);
@@ -154,12 +190,3 @@ function exportToCsv(filename, rows) {
         }
     }
 }
-
-
-// console.log(`Final watchlist before CSV ${watchList}`);
-// exportToCsv('watchlast.data.csv', [
-//     ['name', 'description'],
-//     ['david', '123'],
-//     ['jona', '""'],
-//     ['a', 'b'],
-// ])

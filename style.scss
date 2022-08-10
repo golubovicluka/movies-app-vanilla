@@ -10,6 +10,7 @@ body {
 
 #app {
   width: 100%;
+  background: #2c001e;
   header {
     display: flex;
     align-items: center;
@@ -17,19 +18,28 @@ body {
     width: 100%;
     nav {
       display: flex;
-      background-color: darkgray;
+      background-color: black;
       height: 100%;
       align-items: center;
       width: 100%;
       ul {
         display: flex;
+        align-items: center;
         padding: 0;
         margin: 0;
         list-style: none;
         li {
           margin: 0 30px;
-          border: 1px solid white;
           padding: 15px 30px;
+
+          .home-link {
+            text-decoration: none;
+            color: white;
+          }
+          #search {
+            padding: 10px;
+            border-radius: 10px;
+          }
         }
       }
     }
@@ -37,11 +47,26 @@ body {
   main {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-left: 20px;
+    padding-top: 20px;
 
     .recommended-title-text {
       margin: 0px 10px;
-      color: red;
+      color: white;
+    }
+    .watch-list {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+      .watch-list-container {
+        border-radius: 10px;
+        padding: 5px;
+        max-width: 250px;
+        li {
+          list-style-type: none;
+          color: #dd4814;
+        }
+      }
     }
 
     .recommended-catalog {
@@ -49,7 +74,6 @@ body {
 
       .movie-card {
         margin: 10px;
-        border: 1px solid green;
         background-color: rgb(30, 30, 30);
         max-height: 400px;
         transition: transform 250ms ease-in-out;
@@ -62,6 +86,7 @@ body {
         .card-poster {
           height: 200px;
           max-width: 400px;
+          margin-bottom: 20px;
           img {
             max-width: 100%;
             max-height: 100%;
@@ -71,18 +96,22 @@ body {
         .card-footer {
           display: flex;
           flex-direction: column;
-          padding-left: 10px;
+          padding-top: 5px;
           justify-content: center;
           color: white;
-          height: 75px;
+          height: 70px;
+          margin-bottom: 10px;
           button {
             border: 1px solid whitesmoke;
             border-radius: 10px;
             transition: transform 250ms ease-in-out;
+            padding: 5px;
+            max-width: max-content;
+            margin-bottom: 10px;
             &:hover {
               cursor: pointer;
-              background-color: rgb(58, 64, 62);
-              color: aqua;
+              background-color: #5e2750;
+              color: #dd4814;
               transform: scale(1.05);
             }
           }
@@ -95,7 +124,6 @@ body {
     .genres-menu {
       width: 25vh;
       min-width: 250px;
-      border: 1px solid blue;
       list-style-type: none;
       margin: 20px;
       padding: 20px;
@@ -106,13 +134,13 @@ body {
         margin: 10px;
         padding: 10px;
         border: 1px solid rgb(15, 145, 221);
-        border-radius: 20px;
+        color: white;
         transition: transform 250ms ease-in-out;
         &:hover {
           cursor: pointer;
-          background-color: rgb(58, 64, 62);
-          color: aqua;
-          transform: scale(1.1);
+          background-color: #5e2750;
+          color: #dd4814;
+          transform: scale(1.05);
         }
       }
       ul {
@@ -131,19 +159,17 @@ body {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      border: 1px solid brown;
       padding: 20px;
       width: 100%;
 
       .movie-card {
         margin: 10px;
-        border: 1px solid green;
         background-color: rgb(30, 30, 30);
         max-height: 400px;
         transition: transform 250ms ease-in-out;
 
         &:hover {
-          background-color: rgb(0, 0, 0, 0.7);
+          background-color: rgb(0, 0, 0, 0.5);
           transform: scale(1.05);
         }
         .card-poster {
@@ -162,20 +188,29 @@ body {
           padding-left: 10px;
           justify-content: center;
           color: white;
-          height: 70px;
+          height: 85px;
           button {
-            border: 1px solid rgb(255, 255, 255);
+            border: 1px solid whitesmoke;
             border-radius: 10px;
             transition: transform 250ms ease-in-out;
+            padding: 5px;
+            max-width: max-content;
+            margin-bottom: 10px;
             &:hover {
               cursor: pointer;
-              background-color: rgb(58, 64, 62);
-              color: aqua;
+              background-color: #5e2750;
+              color: #dd4814;
               transform: scale(1.05);
             }
           }
         }
       }
+    }
+  }
+  footer {
+    button {
+      margin: 10px;
+      padding: 10px;
     }
   }
 }

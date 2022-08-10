@@ -13,14 +13,17 @@
 <body>
     <div id="app">
         <header>
-            <img src="" alt="">
             <nav>
                 <ul>
-                    <li>Suggested 1</li>
-                    <li>Suggested 2</li>
-                    <li>Suggested 3</li>
-                    <input id="search" type="search" placeholder="Search movies..."
-                        oninput="moviesFilter.searchByTitle(this.value)">
+                    <li>
+                        <a class="home-link" href="/">
+                            Movies Application
+                        </a>
+                    </li>
+                    <li>
+                        <input id="search" type="search" placeholder="Search movies..."
+                            oninput="moviesFilter.searchByTitle(this.value)">
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -39,9 +42,24 @@
                     <!-- injected by template  -->
                 </section>
             </div>
+            <h4 class="recommended-title-text">Watch list</h4>
+            <div class="watch-list" id="watch-list">
+                <!-- injected by template -->
+            </div>
         </main>
         <footer>
-
+            <button onclick="exportToCsv(
+                'watchlist.data.csv', [
+                ['Day', 'Movie title'],
+                ['Monday', `${watchList[0]}`],
+                ['Tuesday', `${watchList[1]}`],
+                ['Wednesay', `${watchList[2]}`],
+                ['Thursday', `${watchList[3]}`],
+                ['Friday', `${watchList[4]}`],
+                ['Saturday', `${watchList[5]}`],
+                ['Sunday', `${watchList[6]}`],
+            ])">Download CSV</button>
+            <!-- Add footer in the future... -->
         </footer>
     </div>
 </body>
