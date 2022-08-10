@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Application</title>
+    <title>Movie Application - Vanilla JS</title>
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
 </head>
@@ -25,30 +25,24 @@
             </nav>
         </header>
         <main>
-    </div>
-    <aside class="genres-menu" id="genres-menu">
-        <ul>
-            <li>test</li>
-            <li>test 2</li>
-            <li>test 3</li>
-            <li>test 4</li>
-            <li>test 5</li>
-        </ul>
-    </aside>
-    <section class="movie-catalog" id="movie-catalog">
-        <!-- add movie components here -->
-        <ul>
-            <li>Test movie</li>
-            <li>Test movie</li>
-            <li>Test movie</li>
-            <li>Test movie</li>
-            <li>Test movie</li>
-        </ul>
-    </section>
-    </main>
-    <footer>
+            <h4 class="recommended-title-text">Recommended movies</h4>
+            <div class="recommended-catalog" id="recommended-catalog">
+                <!-- injected by template -->
+            </div>
+            <div class="center-wrapper">
+                <aside class="genres-menu" id="genres-menu">
+                    <ul>
+                        <!-- injected by template -->
+                    </ul>
+                </aside>
+                <section class="movie-catalog" id="movie-catalog">
+                    <!-- injected by template  -->
+                </section>
+            </div>
+        </main>
+        <footer>
 
-    </footer>
+        </footer>
     </div>
 </body>
 

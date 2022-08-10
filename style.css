@@ -40,7 +40,55 @@ body {
   flex-direction: column;
   margin-top: 20px;
 }
-#app .genres-menu {
+#app main .recommended-title-text {
+  margin: 0px 10px;
+  color: red;
+}
+#app main .recommended-catalog {
+  display: flex;
+}
+#app main .recommended-catalog .movie-card {
+  margin: 10px;
+  border: 1px solid green;
+  background-color: rgb(30, 30, 30);
+  max-height: 400px;
+  transition: transform 250ms ease-in-out;
+}
+#app main .recommended-catalog .movie-card:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+}
+#app main .recommended-catalog .movie-card .card-poster {
+  height: 200px;
+  max-width: 400px;
+}
+#app main .recommended-catalog .movie-card .card-poster img {
+  max-width: 100%;
+  max-height: 100%;
+}
+#app main .recommended-catalog .movie-card .card-footer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  justify-content: center;
+  color: white;
+  height: 75px;
+}
+#app main .recommended-catalog .movie-card .card-footer button {
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+  transition: transform 250ms ease-in-out;
+}
+#app main .recommended-catalog .movie-card .card-footer button:hover {
+  cursor: pointer;
+  background-color: rgb(58, 64, 62);
+  color: aqua;
+  transform: scale(1.05);
+}
+#app main .center-wrapper {
+  display: flex;
+}
+#app main .genres-menu {
   width: 25vh;
   min-width: 250px;
   border: 1px solid blue;
@@ -49,7 +97,7 @@ body {
   padding: 20px;
   border-radius: 20px;
 }
-#app .genres-menu li {
+#app main .genres-menu li {
   display: flex;
   justify-content: center;
   margin: 10px;
@@ -58,22 +106,67 @@ body {
   border-radius: 20px;
   transition: transform 250ms ease-in-out;
 }
-#app .genres-menu ul {
+#app main .genres-menu li:hover {
+  cursor: pointer;
+  background-color: rgb(58, 64, 62);
+  color: aqua;
+  transform: scale(1.1);
+}
+#app main .genres-menu ul {
   display: flex;
   flex-direction: column;
   padding: 0;
   margin: 0;
 }
-#app .genres-menu ul li {
+#app main .genres-menu ul li {
   margin: 0 30px;
   border: 1px solid white;
   padding: 15px 30px;
 }
-#app .movie-catalog {
+#app main .movie-catalog {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   border: 1px solid brown;
   padding: 20px;
   width: 100%;
+}
+#app main .movie-catalog .movie-card {
+  margin: 10px;
+  border: 1px solid green;
+  background-color: rgb(30, 30, 30);
+  max-height: 400px;
+  transition: transform 250ms ease-in-out;
+}
+#app main .movie-catalog .movie-card:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+}
+#app main .movie-catalog .movie-card .card-poster {
+  height: 300px;
+  max-width: 400px;
+  max-height: 95%;
+}
+#app main .movie-catalog .movie-card .card-poster img {
+  max-width: 100%;
+  max-height: 95%;
+}
+#app main .movie-catalog .movie-card .card-footer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  justify-content: center;
+  color: white;
+  height: 70px;
+}
+#app main .movie-catalog .movie-card .card-footer button {
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  transition: transform 250ms ease-in-out;
+}
+#app main .movie-catalog .movie-card .card-footer button:hover {
+  cursor: pointer;
+  background-color: rgb(58, 64, 62);
+  color: aqua;
+  transform: scale(1.05);
 }/*# sourceMappingURL=style.css.map */
